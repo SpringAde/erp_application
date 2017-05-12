@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.dgit.erp.dao.TitleMapper">
+
+	<resultMap type="Title" id="TitleResult">
+		<id property="tCode" column="tcode" />
+		<result property="tName" column="tname"/>		
+	</resultMap>
+	
+	<sql id = "selectSql">
+		select tcode, tname from title
+	</sql>
+	
+	<sql id = "insertSql">
+		insert into title(tcode, tname) values (#{tCode}, #{tName})	
+	</sql>
+	
+	<sql id ="updateSql">
+		update title
+		<set>
+			<if test = "tCode != null">
+				tname = #{tName}
+			</if>
+		</set>					
+	</sql>
+	
+	<sql id="deleteSql">
+		delete from title
+	</sql>
+	
+	<sql id = "whereSql">
+		<where>
+			<if test = "tCode != null">
+				tcode = #{tCode}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 삽입  -->
+	<insert id="insertTitle" parameterType="Title">
+		<include refid="insertSql"></include>
+	</insert>
+	<!-- 삭제  -->
+	<delete id="deleteTitle" parameterType="Title">
+		<include refid="deleteSql"></include>
+		<include refid="whereSql"></include>
+	</delete>
+	
+	<!-- 수정  -->
+	<update id="updateTitle" parameterType="Title">
+		<include refid="updateSql"></include>
+		<include refid="whereSql"></include>
+	</update>
+	
+	<!-- 전체 목록 출력  -->
+	<select id="selectTitleAll" resultMap="TitleResult">
+		<include refid="selectSql"></include>
+	</select>
+	
+	<!-- 번호에 맞는 목록 출력 -->
+	<select id="selectTitleByNo" parameterType="Title" resultMap="TitleResult">
+		<include refid="selectSql"></include>
+		<include refid="whereSql"></include>
+	</select>
+	
+	<!-- 목록 개수  -->
+	<select id="selectCount" resultType="int">
+		select count(*) from title
+	</select>
+
+</mapper>
+
+
