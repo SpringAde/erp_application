@@ -55,6 +55,12 @@ public class DepartmentMapperImpl implements DepartmentMapper {
 		return sqlSession.selectOne(namespace+"selectCount");
 	}
 
+	@Override
+	public Department selectDepartmentByName() {
+		log.debug("selectDepartmentByName()");
+		return sqlSession.selectOne(namespace+"selectDepartmentByName");
+	}
+
 	
 
 }

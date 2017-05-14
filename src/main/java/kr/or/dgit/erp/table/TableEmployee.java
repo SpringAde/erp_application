@@ -1,6 +1,7 @@
 package kr.or.dgit.erp.table;
 
 import java.awt.BorderLayout;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -13,12 +14,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
+import kr.or.dgit.erp.dto.Department;
 import kr.or.dgit.erp.dto.Employee;
 import kr.or.dgit.erp.dto.Title;
+import kr.or.dgit.erp.service.EmployeeService;
 
 
 public class TableEmployee extends JPanel {
 	private JTable table;
+	private List<Employee> list;
 	
 	public TableEmployee() {
 		setLayout(new BorderLayout(0, 0));
@@ -30,6 +34,8 @@ public class TableEmployee extends JPanel {
 		
 		table = new JTable();		
 		scrollPane.setViewportView(table);
+		
+		loadData();	// DB데이터를 Table에 넣기
 	}
 	
 	public void loadData(){
@@ -40,17 +46,30 @@ public class TableEmployee extends JPanel {
 	}	
 
 	public Object[][] getRowData() {
-		// TODO Auto-generated method stub
-		return null;
+		list = EmployeeService.getInstance().selectEmployeeAll();
+		Object[][] datas = new Object[list.size()][];
+		for(int i=0; i<datas.length; i++){
+			datas[i] = list.get(i).toArray();
+		}
+		return datas;
 	}
 
 	public Object[] getColumnData() {
 		return new String[] {"번호", "사원명", "직책", "급여", "성별", "부서", "입사일"};
 	}
 	
+	// 선택한 row의 해당 정보 가져오기
+	public Employee getSelectedObject() {
+		int selectedIdx = table.getSelectedRow();	// 행 index
+		if(selectedIdx != -1) return null;
+		
+		String eNo = table.getValueAt(selectedIdx, 0).toString().substring(1);		
+		return EmployeeService.getInstance().selectEmployeeByNo(new Employee(Integer.parseInt(eNo)));
+	}
+	
 	public void CellAlign() {
 		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 4, 5);
-		tableCellAlignment(SwingConstants.RIGHT, 3);	//급여 오른쪽 정렬
+		tableCellAlignment(SwingConstants.RIGHT, 3);	//정렬
 	}
 
 	public void CellWidth() {
@@ -78,12 +97,4 @@ public class TableEmployee extends JPanel {
 	public JTable getTable() {		//view에서 참조
 		return table;
 	}
-
-	public Employee getSelectedObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-
 }

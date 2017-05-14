@@ -55,4 +55,10 @@ public class TitleMapperImpl implements TitleMapper {
 		return sqlSession.selectOne(namespace+"selectCount");		
 	}
 
+	@Override
+	public Title selectTitleByName(Title title) {
+		log.debug("selectTitleByName()");
+		return sqlSession.selectOne(namespace+"selectTitleByName");	
+	}
+
 }

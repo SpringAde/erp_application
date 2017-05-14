@@ -11,7 +11,6 @@ import org.apache.ibatis.session.SqlSession;
 import kr.or.dgit.erp.dto.Employee;
 
 public class EmployeeMapperImpl implements EmployeeMapper {
-	//service(블럭-dao조합)에서 하는 작업을 여기에서 한다.
 	private String namespace="kr.or.dgit.erp.dao.EmployeeMapper.";
 	private static final Log log = LogFactory.getLog(EmployeeMapperImpl.class);
 	
@@ -24,7 +23,6 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 	public int insertEmployee(Employee employee) {
 		log.debug("insertEmployee()");
 		return sqlSession.insert(namespace+"insertEmployee", employee);
-		//kr.or.dgit.erp.dao.EmployeeMapper.insertEmployee(Employee employee);
 	}
 
 	@Override

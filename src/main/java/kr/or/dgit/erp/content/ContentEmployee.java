@@ -4,7 +4,9 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JPanel;
@@ -18,6 +20,7 @@ import erp_application_frameWork.MyTextFieldPanel;
 import kr.or.dgit.erp.dto.Department;
 import kr.or.dgit.erp.dto.Employee;
 import kr.or.dgit.erp.dto.Title;
+import kr.or.dgit.erp.service.DepartmentService;
 import kr.or.dgit.erp.service.EmployeeService;
 import kr.or.dgit.erp.service.TitleService;
 
@@ -29,6 +32,9 @@ public class ContentEmployee extends JPanel{
 	private MyRadioPanel pGender;
 	private MyComboBoxPanel<Department> pDept;
 	private MyDateFieldPanel pDate;
+	private List<Title> titleData;
+	private List<Department> deptData;
+	
 
 	public ContentEmployee() {
 		setLayout(new GridLayout(0, 1, 0, 5));		
@@ -46,6 +52,10 @@ public class ContentEmployee extends JPanel{
 		
 		pTitle = new MyComboBoxPanel<>();
 		pTitle.setTitle("직책");
+		
+		//직책클래스의 모든 항목을 가져오기
+		titleData = TitleService.getInstance().selectTitleAll();
+		pTitle.setAddItem(titleData);
 		add(pTitle);
 		pTitle.setLayout(new GridLayout(1, 0, 20, 0));
 		
@@ -66,6 +76,10 @@ public class ContentEmployee extends JPanel{
 		
 		pDept = new MyComboBoxPanel<>();
 		pDept.setTitle("부서");
+		
+		//부서클래스의 모든 항목을 가져오기
+		deptData = DepartmentService.getInstance().selectDepartmentAll();
+		pDept.setAddItem(deptData);
 		add(pDept);
 		pDept.setLayout(new GridLayout(1, 0, 20, 0));	
 		
@@ -76,7 +90,7 @@ public class ContentEmployee extends JPanel{
 		add(pDate);
 		pDate.setLayout(new GridLayout(1, 0, 20, 0));
 		
-		//clear();	// 입력 필드 초기화, 사번은 자동부여
+		clear();	// 입력 필드 초기화, 사번은 자동부여
 	}
 	
 	public boolean isEmptyCheck(){
@@ -99,24 +113,16 @@ public class ContentEmployee extends JPanel{
 		return pName;
 	}
 	
-	//직책을 벡터에 담아서 emp의 콤보박스에 내용 넣기
-	public void setEmpTitle(Vector<Title> titles){
-		pTitle.setAddItem(titles);
-	}
-	
-	//부서를 콤보박스에 넣기
-	public void setEmpDept(Vector<Department> depts){
-		pDept.setAddItem(depts);
-	}
-	
 	public Employee getObject(){		
-		int eNo = Integer.parseInt(pNo.getTfValue().substring(4)); //E017001
+		int eNo = Integer.parseInt(pNo.getTfValue().substring(1)); //E017001
+		System.out.println("===================================="+eNo);
 		String eName = pName.getTfValue();
-		Title title = (Title)pTitle.getSelectItem();
+		Title title = TitleService.getInstance().selectTitleByName(new Title((String)pTitle.getSelectItem()));
 		int salary = (int)pSalary.getValue();
-		boolean gender = pGender.getSelectedItem().equals("남")? true : false;
-		Department dNo = (Department)pDept.getSelectItem();
-		
+		boolean gender = pGender.getSelectedItem().equals("남")? true : false;	//1:0				
+		String[] dept= (String[])pDept.getSelectItem().toString().trim().split(("\\("));	//개발(9층)
+		Department dNo= DepartmentService.getInstance().selectDepartmentByName(new Department(dept[0]));
+				
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date joinDate = null;
 			try{
@@ -129,11 +135,16 @@ public class ContentEmployee extends JPanel{
 	}
 	
 	public void setObject(Employee item){
-		pNo.setTfValue(String.format("E017%03d",item.geteNo()));
+		pNo.setTfValue(String.format("E%06d",item.geteNo()));
 		pName.setTfValue(item.geteName());
 		pTitle.setSelectedItem(item.getTitle());
 		pSalary.setValue(item.getSalary());
-		pGender.setSelectedItem(item.isGender()+"");
+		if(item.isGender()){
+			pGender.setSelectedIndex(0);//남
+		}else{
+			pGender.setSelectedIndex(1);//여
+		}
+		
 		pDept.setSelectedItem(item.getdNo());
 		pDate.setTfVAlue(String.format("%tF", item.getJoinDate()));
 	}
@@ -142,9 +153,9 @@ public class ContentEmployee extends JPanel{
 		pNo.setTfValue(setCodeInit());	// 번호 포맷이 자동 부여
 		pName.setTfValue("");
 		pName.getTextField().requestFocus();
-		pTitle.setSelectedIndex(0);
 		pSalary.setValue(1500000);
 		pGender.setSelectedIndex(0);
+		pTitle.setSelectedIndex(4);
 		pDept.setSelectedIndex(0);
 		pDate.setTfVAlue(String.format("%tF", new Date()));
 	}	
@@ -153,7 +164,6 @@ public class ContentEmployee extends JPanel{
 		String codeNumber = String.format(setCodeFormat(), EmployeeService.getInstance().selectCount()+1);
 		return codeNumber;
 	}
-	public String setCodeFormat() {return "E017%03d";}
-	
+	public String setCodeFormat() {return "E%06d";}	
 	
 }

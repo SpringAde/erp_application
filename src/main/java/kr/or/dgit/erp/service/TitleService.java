@@ -73,4 +73,12 @@ public class TitleService {
 			return res;
 		}
 	}
+	
+	//직책이름
+	public Title selectTitleByName(Title title) {
+		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()){
+			TitleMapper titleMapper = new TitleMapperImpl(sqlSession);
+			return titleMapper.selectTitleByName(title);
+		}		
+	}
 }

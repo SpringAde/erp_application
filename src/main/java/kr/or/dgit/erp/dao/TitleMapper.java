@@ -15,4 +15,8 @@ public interface TitleMapper {
 	Title selectTitleByNo(Title title);
 	
 	int selectCount();	// 출력된 목록 개수
+	
+	//Employee에서 보여질 직책
+	Title selectTitleByName(Title title);
+	
 }

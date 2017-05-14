@@ -81,4 +81,12 @@ public class DepartmentService {
 			return res;
 		}
 	}
+	
+	// 부서명
+	public Department selectDepartmentByName(Department department) {
+		try (SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
+			DepartmentMapper departmentMapper = new DepartmentMapperImpl(sqlSession);
+			return departmentMapper.selectDepartmentByName();
+		}
+	}
 }

@@ -11,6 +11,10 @@ public class Department {
 		this.dCode = dCode;
 	}	
 
+	public Department(String dName) {
+		this.dName = dName;
+	}
+
 	public Department(int dCode, String dName, int floor) {
 		this.dCode = dCode;
 		this.dName = dName;

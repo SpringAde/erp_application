@@ -21,7 +21,7 @@ import kr.or.dgit.erp.service.EmployeeService;
 import kr.or.dgit.erp.service.TitleService;
 import kr.or.dgit.erp.table.TableEmployee;
 
-public class ViewEmployee extends JFrame {
+public class ViewEmployee extends JFrame implements ActionListener {
 	private JPanel contentPane;	
 	private JButton btnSave;
 	private JButton btnReset;
@@ -48,7 +48,11 @@ public class ViewEmployee extends JFrame {
 		//버튼 삽입
 		JPanel pBtn = new JPanel();
 		btnSave = new JButton("추가");
+		btnSave.addActionListener(this);
+		
 		btnReset = new JButton("취소");
+		btnReset.addActionListener(this);
+		
 		pBtn.add(btnSave);
 		pBtn.add(btnReset);
 		contentPane.add(pBtn);
@@ -81,7 +85,7 @@ public class ViewEmployee extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("수정")){
-					Employee data = empTable.getSelectedObject();	//return selectTitleByNo
+					Employee data = empTable.getSelectedObject();
 					if(data == null){
 						JOptionPane.showMessageDialog(null, "데이터를 선택하세요");
 						return;
@@ -98,7 +102,7 @@ public class ViewEmployee extends JFrame {
 		deleteData.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Employee data = empTable.getSelectedObject();	//return selectTitleByNo
+				Employee data = empTable.getSelectedObject();
 				if(e.getActionCommand().equals("삭제")){					
 					if(data == null){
 						JOptionPane.showMessageDialog(null, "데이터를 선택하세요");
@@ -106,7 +110,6 @@ public class ViewEmployee extends JFrame {
 					}
 					//데이터 삭제					
 					if (JOptionPane.showConfirmDialog(null, "삭제 하시겠습니까?") == JOptionPane.YES_OPTION) {					
-
 						EmployeeService.getInstance().deleteEmployee(data);
 						emp.clear();
 						empTable.loadData();
@@ -119,12 +122,46 @@ public class ViewEmployee extends JFrame {
 		});
 		popupMenu.add(deleteData);
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnReset) {
+			actionPerformedBtnReset(e);
+		}
+		if (e.getSource() == btnSave) {
+			actionPerformedBtnSave(e);
+		}		
+	}
 	
+	protected void actionPerformedBtnSave(ActionEvent e) {
+		//추가, 수정 버튼 동작
+		String message = null;
+		if(isValidcheck()){
+			JOptionPane.showMessageDialog(null, "사원명을 입력하세요.");
+			return;
+		}
+		
+		if(e.getActionCommand().equals("추가")){
+			EmployeeService.getInstance().insertEmployee(emp.getObject());
+			message = "추가 되었습니다.";
+		}else{
+			EmployeeService.getInstance().updateEmployee(emp.getObject());
+			message = "수정 되었습니다.";
+			btnSave.setText("추가");
+		}
+		emp.clear();
+		empTable.loadData();		
+		JOptionPane.showMessageDialog(null, message);
+		
+	}
+	protected void actionPerformedBtnReset(ActionEvent e) {
+		emp.clear();
+		btnSave.setText("추가");
+	}
 	
-	
-	
-	
-	
+	private boolean isValidcheck(){
+		return emp.isEmptyCheck();
+	}
 	
 	
 }

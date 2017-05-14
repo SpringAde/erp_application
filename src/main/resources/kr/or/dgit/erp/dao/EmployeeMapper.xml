@@ -3,7 +3,96 @@
 
 <mapper namespace="kr.or.dgit.erp.dao.EmployeeMapper">
 
+	<resultMap type="Employee" id="EmployeeResult">
+		<id property="eNo" column="eno" />
+		<result property="eName" column="ename"/>
+		<result property="salary" column="salary"/>
+		<result property="gender" column="gender"/>
+		<result property="joinDate" column="joindate"/>
+		<association property="dNo" resultMap="kr.or.dgit.erp.dao.DepartmentMapper.DepartmentResult"/>
+		<association property="title" resultMap="kr.or.dgit.erp.dao.TitleMapper.TitleResult"/>
+	</resultMap>
 	
+ 	<sql id = "selectSql">
+		select eno, ename, salary, dno, gender, joindate, title from employee e join department d on e.dno=d.dcode join title t on e.title=t.tcode
+	</sql>
 	
+	<sql id = "insertSql">
+		insert into employee(eno, ename, salary, dno, gender, joindate, title) 
+		values (#{eNo}, #{eName}, #{salary}, #{dNo.dCode}, #{gender}, #{joinDate}, #{title.tCode})		
+	</sql>
 	
+	<sql id ="updateSql">
+		update employee
+		<set>			
+			<if test = "eNo != null">
+				eno = #{eNo},
+			</if>
+			<if test = "eName != null">
+				ename = #{eName},
+			</if>			
+			<if test = "title != null">
+				title = #{title.tCode},
+			</if>
+			<if test = "salary != null">
+				salary = #{salary},
+			</if>
+			<if test = "gender != null">
+				gender = #{gender},
+			</if>
+			<if test = "dNo != null">
+				dno = #{dNo.dCode},
+			</if>
+			<if test="joinDate != null">
+				joinDate=#{joinDate}
+			</if>
+		</set>		
+	</sql>
+	
+	<sql id="deleteSql">
+		delete from employee
+	</sql>
+	
+	<sql id = "whereSql">
+		<where>
+			<if test = "eNo != null">
+				eno = #{eNo}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 삽입 --> 
+	<insert id="insertEmployee" parameterType="Employee">
+		<include refid="insertSql"></include>
+	</insert>
+	
+	<!-- 삭제 --> 
+	<delete id="deleteEmployee" parameterType="Employee">
+		<include refid="deleteSql"></include>
+		<include refid="whereSql"></include>
+	</delete>
+	
+	<!-- 수정 --> 
+	<update id="updateEmployee" parameterType="Employee">
+		<include refid="updateSql"></include>
+		<include refid="whereSql"></include>
+	</update>
+	
+	<!-- 전체 목록 출력  -->
+	<select id="selectEmployeeAll" resultMap="EmployeeResult">
+		<include refid="selectSql"></include>
+		order by eno
+	</select>
+	
+	<!-- 번호에 맞는 목록 출력 -->
+	<select id="selectEmployeeByNo" parameterType="Employee" resultMap="EmployeeResult">
+		<include refid="selectSql"></include>
+		<include refid="whereSql"></include>
+	</select>
+	
+	<!-- 목록 개수 --> 
+	<select id="selectCount" resultType="int">
+		select count(*) from employee
+	</select>
+		
 </mapper>
