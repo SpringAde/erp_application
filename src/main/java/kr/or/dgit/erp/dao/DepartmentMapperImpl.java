@@ -50,15 +50,15 @@ public class DepartmentMapperImpl implements DepartmentMapper {
 	}
 
 	@Override
-	public int selectCount() {
-		log.debug("selectCount()");
-		return sqlSession.selectOne(namespace+"selectCount");
-	}
-
-	@Override
 	public Department selectDepartmentByName() {
 		log.debug("selectDepartmentByName()");
 		return sqlSession.selectOne(namespace+"selectDepartmentByName");
+	}
+
+	@Override
+	public int selectMaxNum() {
+		log.debug("selectMaxNum()");
+		return sqlSession.selectOne(namespace+"selectMaxNum");
 	}
 
 	

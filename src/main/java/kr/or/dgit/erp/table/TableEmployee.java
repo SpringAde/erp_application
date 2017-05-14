@@ -61,19 +61,19 @@ public class TableEmployee extends JPanel {
 	// 선택한 row의 해당 정보 가져오기
 	public Employee getSelectedObject() {
 		int selectedIdx = table.getSelectedRow();	// 행 index
-		if(selectedIdx != -1) return null;
+		if(selectedIdx == -1) return null;
 		
-		String eNo = table.getValueAt(selectedIdx, 0).toString().substring(1);		
+		String eNo = table.getValueAt(selectedIdx, 0).toString().substring(1);	
 		return EmployeeService.getInstance().selectEmployeeByNo(new Employee(Integer.parseInt(eNo)));
 	}
 	
 	public void CellAlign() {
-		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 4, 5);
+		tableCellAlignment(SwingConstants.CENTER, 0, 1, 2, 4, 5, 6);
 		tableCellAlignment(SwingConstants.RIGHT, 3);	//정렬
 	}
 
 	public void CellWidth() {
-		tableSetWidth(100, 100, 80, 120, 80, 120, 130);	//셀 너비		
+		tableSetWidth(100, 100, 80, 120, 80, 80, 130);	//셀 너비		
 	}
 	
 	public void tableCellAlignment(int align, int...idx){

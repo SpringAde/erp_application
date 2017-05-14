@@ -110,12 +110,16 @@ public class ViewEmployee extends JFrame implements ActionListener {
 					}
 					//데이터 삭제					
 					if (JOptionPane.showConfirmDialog(null, "삭제 하시겠습니까?") == JOptionPane.YES_OPTION) {					
-						EmployeeService.getInstance().deleteEmployee(data);
-						emp.clear();
-						empTable.loadData();
-						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+						try{
+							EmployeeService.getInstance().deleteEmployee(data);
+							emp.clear();
+							empTable.loadData();
+							JOptionPane.showMessageDialog(null, "삭제되었습니다.");
+						}catch (Exception ex){
+							JOptionPane.showMessageDialog(null, "참조하는 데이터가 있습니다.");
+						}						
 					} else {
-						JOptionPane.showMessageDialog(null, "취소 하였습니다.");							
+						JOptionPane.showMessageDialog(null, "취소하였습니다.");							
 					}
 				}			
 			}			

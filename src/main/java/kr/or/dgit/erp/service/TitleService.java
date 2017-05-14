@@ -65,10 +65,10 @@ public class TitleService {
 	}
 	
 	//목록 개수
-	public int selectCount(){
+	public int selectMaxNum() {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()){
 			TitleMapper titleMapper = new TitleMapperImpl(sqlSession);
-			int res = titleMapper.selectCount();
+			int res = titleMapper.selectMaxNum();
 			sqlSession.commit();			
 			return res;
 		}
@@ -81,4 +81,6 @@ public class TitleService {
 			return titleMapper.selectTitleByName(title);
 		}		
 	}
+	
+	
 }

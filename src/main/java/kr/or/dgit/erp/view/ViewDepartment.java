@@ -111,12 +111,17 @@ public class ViewDepartment extends JFrame implements ActionListener {
 					}
 					// 데이터 삭제
 					if (JOptionPane.showConfirmDialog(null, "삭제 하시겠습니까?") == JOptionPane.YES_OPTION) {
-						DepartmentService.getInstance().deleteDepartment(data);
-						dept.clear();
-						deptTable.loadData();
-						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+						try {
+							DepartmentService.getInstance().deleteDepartment(data);
+							dept.clear();
+							deptTable.loadData();
+							JOptionPane.showMessageDialog(null, "삭제되었습니다.");
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, "참조하는 데이터가 있습니다.");
+						}
+
 					} else {
-						JOptionPane.showMessageDialog(null, "취소 하였습니다.");
+						JOptionPane.showMessageDialog(null, "취소하였습니다.");
 					}
 				}
 			}
@@ -144,18 +149,18 @@ public class ViewDepartment extends JFrame implements ActionListener {
 		}
 
 		if (e.getActionCommand().equals("추가")) {
-			try{
+			try {
 				DepartmentService.getInstance().insertDepartment(dept.getObject());
-			} catch (NumberFormatException ex){
+			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null, "숫자를 입력하세요.");
 				dept.clear();
 				return;
 			}
 			message = "추가 되었습니다.";
 		} else {
-			try{
-				DepartmentService.getInstance().updateDepartment(dept.getObject());			
-			} catch (NumberFormatException ex){
+			try {
+				DepartmentService.getInstance().updateDepartment(dept.getObject());
+			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null, "숫자를 입력하세요.");
 				dept.clear();
 				Department data = deptTable.getSelectedObject();
@@ -167,7 +172,7 @@ public class ViewDepartment extends JFrame implements ActionListener {
 		}
 		dept.clear();
 		deptTable.loadData();
-		JOptionPane.showMessageDialog(null, message);		
+		JOptionPane.showMessageDialog(null, message);
 	}
 
 	private void actionPerformedBtnReset(ActionEvent e) {

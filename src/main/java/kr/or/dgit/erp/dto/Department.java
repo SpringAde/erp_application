@@ -51,6 +51,6 @@ public class Department {
 	}
 	
 	public Object[] toArray() {
-		return new Object[] {String.format("T%03d", dCode), dName, floor};
+		return new Object[] {String.format("D%03d", dCode), dName, floor};
 	}
 }

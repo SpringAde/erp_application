@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.TitlePaneLayout;
+import org.apache.ibatis.exceptions.PersistenceException;
 
 import kr.or.dgit.erp.content.ContentTitle;
 import kr.or.dgit.erp.dto.Title;
@@ -111,7 +112,7 @@ public class ViewTitle extends JFrame implements ActionListener {
 		JMenuItem deleteData = new JMenuItem("삭제");
 		deleteData.addActionListener(new ActionListener() {			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)  {
 				Title data = titleTable.getSelectedObject();	//return selectTitleByNo
 				if(e.getActionCommand().equals("삭제")){					
 					if(data == null){
@@ -119,13 +120,17 @@ public class ViewTitle extends JFrame implements ActionListener {
 						return;
 					}
 					//데이터 삭제					
-					if (JOptionPane.showConfirmDialog(null, "삭제 하시겠습니까?") == JOptionPane.YES_OPTION) {					
-						TitleService.getInstance().deleteTitle(data);
-						title.clear();
-						titleTable.loadData();
-						JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+					if (JOptionPane.showConfirmDialog(null, "삭제 하시겠습니까?") == JOptionPane.YES_OPTION) {
+						try{
+							TitleService.getInstance().deleteTitle(data);
+							title.clear();
+							titleTable.loadData();						
+							JOptionPane.showMessageDialog(null, "삭제되었습니다.");
+						} catch (Exception ex){
+							JOptionPane.showMessageDialog(null, "참조하는 데이터가 있습니다.");
+						}						
 					} else {
-						JOptionPane.showMessageDialog(null, "취소 하였습니다.");							
+						JOptionPane.showMessageDialog(null, "취소하였습니다.");							
 					}
 				}			
 			}			

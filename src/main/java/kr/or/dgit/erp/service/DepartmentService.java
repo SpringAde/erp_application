@@ -9,9 +9,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import kr.or.dgit.erp.dao.DepartmentMapper;
 import kr.or.dgit.erp.dao.DepartmentMapperImpl;
-import kr.or.dgit.erp.dao.TitleMapper;
-import kr.or.dgit.erp.dao.TitleMapperImpl;
-import kr.or.dgit.erp.dto.Department;
 import kr.or.dgit.erp.dto.Department;
 import kr.or.dgit.erp.util.MybatisSqlSessionFactory;
 
@@ -73,10 +70,10 @@ public class DepartmentService {
 	}
 
 	// 목록 개수
-	public int selectCount() {
+	public int selectMaxNum() {
 		try (SqlSession sqlSession = MybatisSqlSessionFactory.openSession()) {
 			DepartmentMapper departmentMapper = new DepartmentMapperImpl(sqlSession);
-			int res = departmentMapper.selectCount();
+			int res = departmentMapper.selectMaxNum();
 			sqlSession.commit();
 			return res;
 		}
@@ -89,4 +86,6 @@ public class DepartmentService {
 			return departmentMapper.selectDepartmentByName();
 		}
 	}
+	
+	
 }

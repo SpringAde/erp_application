@@ -78,7 +78,7 @@ public class ContentDepartment extends JPanel {
 	}	
 	
 	public String setCodeInit(){
-		String codeNumber = String.format(setCodeFormat(), DepartmentService.getInstance().selectCount()+1);
+		String codeNumber = String.format(setCodeFormat(), DepartmentService.getInstance().selectMaxNum()+1);
 		return codeNumber;
 	}
 	public String setCodeFormat() {return "D%03d";}

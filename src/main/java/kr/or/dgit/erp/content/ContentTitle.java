@@ -74,7 +74,7 @@ public class ContentTitle extends JPanel {
 	}	
 	
 	public String setCodeInit(){
-		String codeNumber = String.format(setCodeFormat(), TitleService.getInstance().selectCount()+1);
+		String codeNumber = String.format(setCodeFormat(), TitleService.getInstance().selectMaxNum()+1);
 		return codeNumber;
 	}
 	public String setCodeFormat() {return "T%03d";}	

@@ -14,7 +14,7 @@ public interface TitleMapper {
 	List<Title> selectTitleAll();		//전체 목록 출력
 	Title selectTitleByNo(Title title);
 	
-	int selectCount();	// 출력된 목록 개수
+	int selectMaxNum();
 	
 	//Employee에서 보여질 직책
 	Title selectTitleByName(Title title);

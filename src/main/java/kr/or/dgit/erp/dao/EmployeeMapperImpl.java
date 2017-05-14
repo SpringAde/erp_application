@@ -50,9 +50,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 	}
 
 	@Override
-	public int selectCount() {
-		log.debug("selectCount()");
-		return sqlSession.selectOne(namespace+"selectCount");
+	public int selectMaxNum() {
+		log.debug("selectMaxNum()");
+		return sqlSession.selectOne(namespace+"selectMaxNum");
 	}
 
 }

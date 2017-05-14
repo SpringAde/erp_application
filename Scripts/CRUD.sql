@@ -41,3 +41,5 @@ select * from employee e join department d on e.dno=d.dcode join title t on e.ti
 
 select eno, ename, salary, dno, gender, joindate, title from employee;
 
+select max(eno) from employee;
+

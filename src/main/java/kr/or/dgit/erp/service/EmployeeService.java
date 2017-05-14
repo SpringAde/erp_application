@@ -67,11 +67,11 @@ public class EmployeeService {
 	}
 	
 	//목록 개수
-	public int selectCount() {
+	public int selectMaxNum() {
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()){
 			EmployeeMapper employeeMapper = new EmployeeMapperImpl(sqlSession);
-			int res = employeeMapper.selectCount();
-			sqlSession.commit();			
+			int res = employeeMapper.selectMaxNum();
+			sqlSession.commit();
 			return res;
 		}
 	}

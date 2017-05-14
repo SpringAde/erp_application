@@ -50,15 +50,15 @@ public class TitleMapperImpl implements TitleMapper {
 	}
 
 	@Override
-	public int selectCount() {
-		log.debug("selectCount()");
-		return sqlSession.selectOne(namespace+"selectCount");		
-	}
-
-	@Override
 	public Title selectTitleByName(Title title) {
 		log.debug("selectTitleByName()");
 		return sqlSession.selectOne(namespace+"selectTitleByName");	
+	}
+
+	@Override
+	public int selectMaxNum() {
+		log.debug("selectMaxNum()");
+		return sqlSession.selectOne(namespace+"selectMaxNum");	
 	}
 
 }

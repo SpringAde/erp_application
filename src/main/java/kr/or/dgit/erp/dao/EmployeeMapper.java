@@ -15,6 +15,5 @@ public interface EmployeeMapper {
 	List<Employee> selectEmployeeAll();		//전체 목록 출력
 	Employee selectEmployeeByNo(Employee employee);
 	
-	int selectCount();	// 출력된 목록 개수
-	
+	int selectMaxNum();
 }
