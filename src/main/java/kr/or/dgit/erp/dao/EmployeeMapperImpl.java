@@ -24,6 +24,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 	public int insertEmployee(Employee employee) {
 		log.debug("insertEmployee()");
 		return sqlSession.insert(namespace+"insertEmployee", employee);
+		//kr.or.dgit.erp.dao.EmployeeMapper.insertEmployee(Employee employee);
 	}
 
 	@Override
@@ -46,14 +47,14 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
 	@Override
 	public Employee selectEmployeeByNo(Employee employee) {
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("selectEmployeeByNo()");
+		return sqlSession.selectOne(namespace+"selectEmployeeByNo", employee);
 	}
 
 	@Override
 	public int selectCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		log.debug("selectCount()");
+		return sqlSession.selectOne(namespace+"selectCount");
 	}
 
 }

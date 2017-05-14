@@ -32,7 +32,7 @@ public class EmployeeMapperTest {
 	
 /*	@Test
 	public void testAInsert() {		
-		Employee employee = new Employee(17012, "라라라", new Title(3), 25000000, true, new Department(2), new Date());
+		Employee employee = new Employee(17012, "황인영", new Title(3), 25000000, true, new Department(2), new Date());
 		int res = employeeService.insertEmployee(employee);
 		Assert.assertEquals(1, res);		// 예상값 1이 res와 같아야 테스트성공 (Updates: 1)
 	}*/

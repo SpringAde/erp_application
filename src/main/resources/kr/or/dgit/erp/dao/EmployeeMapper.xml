@@ -3,14 +3,7 @@
 
 <mapper namespace="kr.or.dgit.erp.dao.EmployeeMapper">
 
-	<resultMap type="Employee" id="EmployeeResult">
-		<id property="eNo" column="eno" />
-		<result property="eName" column="ename"/>
-		<result property="salary" column="salary"/>
-		<result property="gender" column="gender"/>
-		<result property="joinDate" column="joindate"/>
-		<association property="dNo" resultMap="kr.or.dgit.DepartmentMapper.DepartmentResult"/>
-		<association property="title" resultMap="kr.or.dgit.erp.dao.TitleMapper.TitleResult"/>
-	</resultMap>
-
+	
+	
+	
 </mapper>

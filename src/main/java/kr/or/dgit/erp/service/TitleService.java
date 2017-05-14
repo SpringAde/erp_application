@@ -21,8 +21,8 @@ public class TitleService {
 	//추가
 	public int insertTitle(Title title){
 		try(SqlSession sqlSession = MybatisSqlSessionFactory.openSession()){
-			TitleMapper employeeMapper = new TitleMapperImpl(sqlSession);
-			int res = employeeMapper.insertTitle(title);
+			TitleMapper titleMapper = new TitleMapperImpl(sqlSession);
+			int res = titleMapper.insertTitle(title);
 			sqlSession.commit();			
 			return res;
 		}

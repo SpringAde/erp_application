@@ -84,7 +84,7 @@ public class ContentEmployee extends JPanel{
 		for(Component c : getComponents()){
 			if (c instanceof MyTextFieldPanel){
 				MyTextFieldPanel tfp = (MyTextFieldPanel)c;
-				if(tfp.isEmptyCheck()){
+				if(tfp.isEmptyCheck()){		//텍스트 필드 패널에 있는 isEmptyCheck
 					return true;
 				}
 			}

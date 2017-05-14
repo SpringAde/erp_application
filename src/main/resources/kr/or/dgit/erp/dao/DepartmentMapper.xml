@@ -9,5 +9,73 @@
 		<result property="floor" column="floor"/>
 	</resultMap>
 	
-
+	<sql id = "selectSql">
+		select dcode, dname, floor from department
+	</sql>
+	
+	<sql id = "insertSql">
+		insert into department(dcode, dname, floor) values (#{dCode}, #{dName}, #{floor})	
+	</sql>
+	
+	<sql id ="updateSql">
+		update department
+		<set>
+			<if test="dCode != null">
+				dcode = #{dCode},
+			</if>
+			<if test = "dName != null">
+				dname = #{dName},
+			</if>
+			<if test = "floor != null">
+				floor = #{floor}
+			</if>
+		</set>					
+	</sql>
+	
+	<sql id="deleteSql">
+		delete from department
+	</sql>
+	
+	<sql id = "whereSql">
+		<where>
+			<if test = "dCode != null">
+				dcode = #{dCode}
+			</if>			
+		</where>
+	</sql>
+	
+	
+	<!-- 삽입  -->
+	<insert id="insertDepartment" parameterType="Department">
+		<include refid="insertSql"></include>
+	</insert>
+	<!-- 삭제  -->
+	<delete id="deleteDepartment" parameterType="Department">
+		<include refid="deleteSql"></include>
+		<include refid="whereSql"></include>
+	</delete>
+	
+	<!-- 수정  -->
+	<update id="updateDepartment" parameterType="Department">
+		<include refid="updateSql"></include>
+		<include refid="whereSql"></include>
+	</update>
+	
+	<!-- 전체 목록 출력  -->
+	<select id="selectDepartmentAll" resultMap="DepartmentResult">
+		<include refid="selectSql"></include>
+		order by dCode
+	</select>
+	
+	<!-- 번호에 맞는 목록 출력 -->
+	<select id="selectDepartmentByNo" parameterType="Department" resultMap="DepartmentResult">
+		<include refid="selectSql"></include>
+		<include refid="whereSql"></include>
+	</select>
+	
+	<!-- 목록 개수  -->
+	<select id="selectCount" resultType="int">
+		select count(*) from department
+	</select>
+	
 </mapper>

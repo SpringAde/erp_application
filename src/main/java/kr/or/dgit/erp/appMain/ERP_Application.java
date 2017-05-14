@@ -31,8 +31,8 @@ public class ERP_Application extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ERP_Application frame = new ERP_Application();
-					frame.setVisible(true);
+					ERP_Application erpApp = new ERP_Application();
+					erpApp.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,6 +60,10 @@ public class ERP_Application extends JFrame implements ActionListener {
 		btnTitle = new JButton("직책관리");
 		btnTitle.addActionListener(this);
 		contentPane.add(btnTitle);
+		
+		emp = new ViewEmployee();
+		dept = new ViewDepartment();
+		title = new ViewTitle();
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -74,20 +78,17 @@ public class ERP_Application extends JFrame implements ActionListener {
 		}
 	}
 	protected void actionPerformedBtnEmp(ActionEvent e) {
-		if(emp == null){
-			emp = new ViewEmployee();
+		if(emp != null){			
 			emp.setVisible(true);
 		}		
 	}
 	protected void actionPerformedBtnDept(ActionEvent e) {
-		if(dept == null){
-			dept = new ViewDepartment();
+		if(dept != null){			
 			dept.setVisible(true);
 		}		
 	}
 	protected void actionPerformedBtnTitle(ActionEvent e) {
-		if(title == null){
-			title = new ViewTitle();		
+		if(title != null){				
 			title.setVisible(true);
 		}		
 	}

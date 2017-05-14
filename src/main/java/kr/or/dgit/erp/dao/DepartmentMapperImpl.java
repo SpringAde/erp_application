@@ -26,33 +26,33 @@ public class DepartmentMapperImpl implements DepartmentMapper {
 	}
 
 	@Override
-	public int updateDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public int deleteDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return 0;
+		log.debug("deleteDepartment()");
+		return sqlSession.delete(namespace+"deleteDepartment", department);
 	}
+	
+	@Override
+	public int updateDepartment(Department department) {
+		log.debug("updateDepartment()");
+		return sqlSession.update(namespace+"updateDepartment", department);
+	}	
 
 	@Override
 	public List<Department> selectDepartmentAll() {
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("selectDepartmentAll");
+		return sqlSession.selectList(namespace+"selectDepartmentAll");
 	}
 
 	@Override
 	public Department selectDepartmentByNo(Department department) {
-		// TODO Auto-generated method stub
-		return null;
+		log.debug("selectDepartmentByNo()");
+		return sqlSession.selectOne(namespace+"selectDepartmentByNo", department);
 	}
 
 	@Override
 	public int selectCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		log.debug("selectCount()");
+		return sqlSession.selectOne(namespace+"selectCount");
 	}
 
 	

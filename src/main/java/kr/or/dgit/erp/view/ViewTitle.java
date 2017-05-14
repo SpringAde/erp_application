@@ -120,7 +120,6 @@ public class ViewTitle extends JFrame implements ActionListener {
 					}
 					//데이터 삭제					
 					if (JOptionPane.showConfirmDialog(null, "삭제 하시겠습니까?") == JOptionPane.YES_OPTION) {					
-
 						TitleService.getInstance().deleteTitle(data);
 						title.clear();
 						titleTable.loadData();
@@ -131,8 +130,7 @@ public class ViewTitle extends JFrame implements ActionListener {
 				}			
 			}			
 		});
-		popupMenu.add(deleteData);
-		
+		popupMenu.add(deleteData);		
 	}
 
 	public void actionPerformed(ActionEvent e) {

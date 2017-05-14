@@ -35,6 +35,8 @@ jar {
 	}
 	// archiveName 'ERP_Application.jar'			//archiveName을 쓰게 되면 위의 baseName, appendix 속성이 무시되고 archiveName로 생성
 	dependsOn configurations.runtime				//실행가능한 jar파일 
+	
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } } 
 }
 
 
