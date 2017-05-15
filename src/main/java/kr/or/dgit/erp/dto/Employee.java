@@ -94,6 +94,6 @@ public class Employee {
 	}
 
 	public Object[] toArray() {
-		return new Object[] {String.format("E%06d", eNo), eName, title, String.format("%,d",salary), gender? "남":"여", dNo, String.format("%tF",joinDate)}; 
+		return new Object[] {String.format("E%06d", eNo), eName, title, String.format("%,d",salary), gender? "남자":"여자", dNo, String.format("%tF",joinDate)}; 
 	}	
 }
