@@ -65,7 +65,7 @@ public class EmployeeMapperTest {
 	
 	@Test
 	public void testESelectOne() {
-		Employee employee = new Employee(17011);		
+		Employee employee = new Employee(17006);		
 		Assert.assertNotNull(employee);
 	}
 

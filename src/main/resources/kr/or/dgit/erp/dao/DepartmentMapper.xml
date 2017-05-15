@@ -74,13 +74,8 @@
 	</select>
 	
 	<!-- 목록 개수  -->
-	<select id="selectCount" resultType="int">
-		select count(*) from department
-	</select>
-	
-	<!-- 가장 큰 번호 -->
 	<select id="selectMaxNum" resultType="int">
-		select max(dcode) from department;
+		select max(dcode) from department
 	</select>
 	
 </mapper>

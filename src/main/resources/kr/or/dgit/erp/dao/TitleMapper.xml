@@ -66,13 +66,8 @@
 	</select>
 	
 	<!-- 목록 개수  -->
-	<select id="selectCount" resultType="int">
-		select count(*) from title
-	</select>
-	
-	<!-- 가장 큰 번호 -->
 	<select id="selectMaxNum" resultType="int">
-		select max(tcode) from title;
+		select max(tcode) from title
 	</select>
 
 </mapper>

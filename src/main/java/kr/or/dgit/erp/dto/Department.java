@@ -46,6 +46,31 @@ public class Department {
 	}
 	
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dName == null) ? 0 : dName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Department other = (Department) obj;
+		if (dName == null) {
+			if (other.dName != null)
+				return false;
+		} else if (!dName.equals(other.dName))	//콤보박스는 콤보박스의 내용과 같은지 내부적으로 자동 equals호출한다.
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return String.format("%s(%s층)", dName, floor);
 	}

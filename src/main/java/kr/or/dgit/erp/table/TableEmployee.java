@@ -1,6 +1,7 @@
 package kr.or.dgit.erp.table;
 
 import java.awt.BorderLayout;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
@@ -46,7 +47,7 @@ public class TableEmployee extends JPanel {
 	}	
 
 	public Object[][] getRowData() {
-		list = EmployeeService.getInstance().selectEmployeeAll();
+		list = EmployeeService.getInstance().selectEmployeeAll();		
 		Object[][] datas = new Object[list.size()][];
 		for(int i=0; i<datas.length; i++){
 			datas[i] = list.get(i).toArray();

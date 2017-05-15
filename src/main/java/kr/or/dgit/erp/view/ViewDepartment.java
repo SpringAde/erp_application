@@ -119,7 +119,6 @@ public class ViewDepartment extends JFrame implements ActionListener {
 						} catch (Exception ex) {
 							JOptionPane.showMessageDialog(null, "참조하는 데이터가 있습니다.");
 						}
-
 					} else {
 						JOptionPane.showMessageDialog(null, "취소하였습니다.");
 					}
@@ -151,12 +150,12 @@ public class ViewDepartment extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("추가")) {
 			try {
 				DepartmentService.getInstance().insertDepartment(dept.getObject());
+				message = "추가 되었습니다.";
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(null, "숫자를 입력하세요.");
 				dept.clear();
 				return;
-			}
-			message = "추가 되었습니다.";
+			}			
 		} else {
 			try {
 				DepartmentService.getInstance().updateDepartment(dept.getObject());

@@ -98,7 +98,8 @@ public class ContentEmployee extends JPanel{
 	//직책클래스의 모든 항목을 가져오기	
 	public void setTitleList() {
 		titleData = TitleService.getInstance().selectTitleAll();
-		pTitle.setAddItem(titleData);	
+		System.out.println(titleData);
+		pTitle.setAddItem(titleData);		
 	}
 
 	//부서클래스의 모든 항목을 가져오기
@@ -121,17 +122,17 @@ public class ContentEmployee extends JPanel{
 		return result;
 	}	
 	
-	
-	
 	public Employee getObject(){		
 		int eNo = Integer.parseInt(pNo.getTfValue().substring(1)); //E017001 -> 017001
 		String eName = pName.getTfValue();		
 		int salary = (int)pSalary.getValue();
 		boolean gender = pGender.getSelectedItem().equals("남")? true : false;	//1:0
-		Title title = TitleService.getInstance().selectTitleByName(new Title((String)pTitle.getSelectItem()));
-		String[] dept= (String[])pDept.getSelectItem().toString().trim().split(("("));	//개발(9층)
-		Department dNo= DepartmentService.getInstance().selectDepartmentByName(new Department(dept[0]));
-				
+		Title title = (Title) pTitle.getSelectItem();
+		System.out.println("===============getObject============= : "+title);
+		
+		Department dNo = (Department) pDept.getSelectItem();
+		System.out.println("===============getObject============= : "+dNo);
+	
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date joinDate = null;
 			try{

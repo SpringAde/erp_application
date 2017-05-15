@@ -155,8 +155,14 @@ public class ViewTitle extends JFrame implements ActionListener {
 		}
 		
 		if(e.getActionCommand().equals("추가")){
-			TitleService.getInstance().insertTitle(title.getObject());
-			message = "추가 되었습니다.";
+			try{
+				TitleService.getInstance().insertTitle(title.getObject());
+				message = "추가 되었습니다.";
+			} catch(Exception ex){
+				JOptionPane.showMessageDialog(null, "입력형식이 올바르지 않습니다.");
+				title.clear();
+				return;
+			}
 		}else{
 			TitleService.getInstance().updateTitle(title.getObject());
 			message = "수정 되었습니다.";

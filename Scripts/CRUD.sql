@@ -26,6 +26,7 @@ delete from  department where dcode=6;
 
 /*Employee*/
 select eno, ename, salary, dno, gender, joindate, title from employee;
+
 select eno, ename, salary, dno, gender, joindate, title from employee where eno=17012;
 
 insert into employee(eno, ename, salary, dno, gender, joindate, title) values 
@@ -38,6 +39,9 @@ update employee set salary=4000000 where ename='황총명';
 delete from  employee where dcode=6;
 
 select * from employee e join department d on e.dno=d.dcode join title t on e.title=t.tcode;
+select eno, ename, salary, d.dcode, gender, joindate, t.tcode from employee e inner join department d on e.dno=d.dcode inner join title t on e.title=t.tcode;
+
+
 
 select eno, ename, salary, dno, gender, joindate, title from employee;
 

@@ -146,8 +146,14 @@ public class ViewEmployee extends JFrame implements ActionListener {
 		}
 		
 		if(e.getActionCommand().equals("추가")){
-			EmployeeService.getInstance().insertEmployee(emp.getObject());
-			message = "추가 되었습니다.";
+			try{
+				EmployeeService.getInstance().insertEmployee(emp.getObject());
+				message = "추가 되었습니다.";
+			} catch(Exception ex){
+				JOptionPane.showMessageDialog(null, "입력형식이 올바르지 않습니다.");
+				emp.clear();
+				return;
+			}			
 		}else{
 			EmployeeService.getInstance().updateEmployee(emp.getObject());
 			message = "수정 되었습니다.";
